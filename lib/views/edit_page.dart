@@ -1,97 +1,80 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:todo_api/models/todo_model.dart';
-import 'package:todo_api/services/todo_services.dart';
+import 'package:notetaker/controllers/home_provider.dart';
+import 'package:provider/provider.dart';
 
-class EditScreen extends StatefulWidget {
-  String? title;
-  String? description;
-  String? id;
-  EditScreen(
+// ignore: must_be_immutable
+class EditPage extends StatefulWidget {
+  String id;
+  String title;
+  String description;
+  final VoidCallback onSave;
+  EditPage(
       {super.key,
+      required this.id,
       required this.title,
       required this.description,
-      required this.id});
+      required this.onSave});
 
   @override
-  State<EditScreen> createState() => _EditScreenState();
+  State<EditPage> createState() => _EditPageState();
 }
 
-class _EditScreenState extends State<EditScreen> {
-  TextEditingController title = TextEditingController();
-  TextEditingController description = TextEditingController();
+class _EditPageState extends State<EditPage> {
   @override
   void initState() {
-    title = TextEditingController(text: widget.title);
-    description = TextEditingController(text: widget.description);
     super.initState();
+    var editProvider = Provider.of<HomeProvider>(context, listen: false);
+    editProvider.titlecontroller = TextEditingController(text: widget.title);
+    editProvider.descriptioncontroller =
+        TextEditingController(text: widget.description);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          color: Colors.black,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      appBar: AppBar(
+          title: Align(
+        alignment: Alignment.centerRight,
+        child: IconButton(
+          onPressed: () {
+            Provider.of<HomeProvider>(context, listen: false)
+                .updateNotes(id: widget.id);
+            widget.onSave();
+            Navigator.of(context).pop();
+          },
+          icon: Icon(
+            Icons.save,
+            size: 35,
+          ),
+        ),
+      )),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Consumer<HomeProvider>(
+          builder: (context, editProvider, child) => Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 50, left: 15),
-                child: IconButton(
-                    onPressed: () {
-                      updateTodo(id: widget.id);
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                      size: 30,
-                    )),
+              TextFormField(
+                style: GoogleFonts.quicksand(fontSize: 20),
+                controller: editProvider.titlecontroller,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                )),
               ),
-              const SizedBox(
-                height: 0,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 30, right: 40),
-                child: TextFormField(
-                  controller: title,
-                  decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Title',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 143, 143, 143))),
-                  style: GoogleFonts.poppins(fontSize: 24),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 50),
-                child: TextFormField(
-                  maxLines: 15,
-                  controller: description,
-                  decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Description',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 143, 143, 143))),
-                  style: GoogleFonts.poppins(fontSize: 19),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
+              TextFormField(
+                maxLines: 10,
+                style: GoogleFonts.quicksand(fontSize: 20),
+                controller: editProvider.descriptioncontroller,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                )),
+              )
             ],
           ),
         ),
       ),
     );
-  }
-
-  updateTodo({required id}) {
-    final titleEdited = title.text;
-    final descriptionEdited = description.text;
-    TodoApiServices().updateTodo(
-        id: id,
-        value: TodoModel(description: descriptionEdited, title: titleEdited));
-    Navigator.of(context).pop();
   }
 }

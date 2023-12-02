@@ -14,13 +14,13 @@ class ShimmerLoader extends StatelessWidget {
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (context, index) {
           return Shimmer.fromColors(
-            baseColor: Colors.grey[600]!,
-            highlightColor: Colors.grey[100]!,
+            baseColor: Color.fromARGB(255, 73, 73, 73),
+            highlightColor: Colors.white,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.2),
+                    color: Color.fromARGB(255, 139, 139, 139).withOpacity(0.2),
                     borderRadius: const BorderRadius.all(Radius.circular(15))),
                 child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
