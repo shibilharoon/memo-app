@@ -43,7 +43,7 @@ class _EditPageState extends State<EditPage> {
             widget.onSave();
             Navigator.of(context).pop();
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.save,
             size: 35,
           ),
@@ -57,7 +57,7 @@ class _EditPageState extends State<EditPage> {
               TextFormField(
                 style: GoogleFonts.quicksand(fontSize: 20),
                 controller: editProvider.titlecontroller,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(
                   borderSide: BorderSide.none,
                 )),
@@ -66,7 +66,7 @@ class _EditPageState extends State<EditPage> {
                 maxLines: 10,
                 style: GoogleFonts.quicksand(fontSize: 20),
                 controller: editProvider.descriptioncontroller,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(
                   borderSide: BorderSide.none,
                 )),

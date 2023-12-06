@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:notetaker/models/model.dart';
 
-class ApiSercice {
+class ApiService {
   Dio dio = Dio();
   var endpointUrl = 'https://656af722dac3630cf7278113.mockapi.io/memo';
 

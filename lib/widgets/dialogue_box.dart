@@ -10,8 +10,8 @@ class DialoguePage extends StatelessWidget {
     return Consumer<HomeProvider>(
       builder: (context, homeProvider, child) => AlertDialog(
         backgroundColor: Colors.black,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 10),
+        title: const Padding(
+          padding: EdgeInsets.only(left: 10),
           child: Text(
             'Add New',
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
@@ -26,14 +26,14 @@ class DialoguePage extends StatelessWidget {
                 controller: homeProvider.titlecontroller,
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Color.fromARGB(219, 255, 255, 255),
+                  fillColor: const Color.fromARGB(219, 255, 255, 255),
                   hintText: 'Title',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextField(
@@ -41,7 +41,7 @@ class DialoguePage extends StatelessWidget {
                 controller: homeProvider.descriptioncontroller,
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Color.fromARGB(255, 255, 255, 255),
+                  fillColor: const Color.fromARGB(255, 255, 255, 255),
                   hintText: 'Description',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -61,7 +61,7 @@ class DialoguePage extends StatelessWidget {
                   homeProvider.titlecontroller.clear();
                   homeProvider.descriptioncontroller.clear();
                 },
-                child: Text(
+                child: const Text(
                   'Add',
                   style: TextStyle(color: Colors.grey),
                 ),
@@ -70,7 +70,7 @@ class DialoguePage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text(
+                child: const Text(
                   'Cancel',
                   style: TextStyle(color: Colors.grey),
                 ),

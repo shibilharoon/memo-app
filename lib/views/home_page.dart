@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:notetaker/controllers/home_provider.dart';
@@ -38,11 +37,11 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(8.0),
         child: Consumer<HomeProvider>(
           builder: (context, homeProvider, child) => FutureBuilder(
-            future: ApiSercice().getNotes(),
+            future: ApiService().getNotes(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 8.0,
                     mainAxisSpacing: 8.0,
@@ -51,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                     final data = homeProvider.noteList[index];
                     return Card(
                       elevation: 4,
-                      color: Color.fromARGB(255, 120, 10, 10),
+                      color: const Color.fromARGB(255, 120, 10, 10),
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -123,14 +122,14 @@ class _HomePageState extends State<HomePage> {
                                       );
                                     },
                                     child:
-                                        Icon(Icons.edit, color: Colors.white),
+                                        const Icon(Icons.edit, color: Colors.white),
                                   ),
-                                  SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                                   InkWell(
                                     onTap: () => showDialog(
                                       context: context,
                                       builder: (context) => AlertDialog(
-                                        title: Text(
+                                        title: const Text(
                                           'Are you sure to delete ?',
                                           style: TextStyle(fontSize: 18),
                                         ),
@@ -141,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                                                     id: data.id);
                                                 Navigator.pop(context);
                                               },
-                                              child: Text(
+                                              child: const Text(
                                                 'Confirm',
                                                 style: TextStyle(
                                                     color: Colors.red),
@@ -150,12 +149,12 @@ class _HomePageState extends State<HomePage> {
                                               onPressed: () {
                                                 Navigator.pop(context);
                                               },
-                                              child: Text('No')),
+                                              child: const Text('No')),
                                         ],
                                       ),
                                     ),
                                     child:
-                                        Icon(Icons.delete, color: Colors.white),
+                                        const Icon(Icons.delete, color: Colors.white),
                                   ),
                                 ],
                               )
@@ -170,7 +169,7 @@ class _HomePageState extends State<HomePage> {
               } else if (snapshot.connectionState == ConnectionState.waiting) {
                 return const ShimmerLoader();
               } else {
-                return Center(child: Text('Data is not available'));
+                return const Center(child: Text('Data is not available'));
               }
             },
           ),
@@ -181,13 +180,13 @@ class _HomePageState extends State<HomePage> {
           showDialog(
             context: context,
             builder: (context) {
-              return DialoguePage();
+              return const DialoguePage();
             },
           );
         },
-        backgroundColor: Color.fromARGB(255, 150, 14, 14),
+        backgroundColor: const Color.fromARGB(255, 150, 14, 14),
         elevation: 4,
-        child: Icon(Icons.add, color: Colors.white),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

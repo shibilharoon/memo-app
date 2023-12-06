@@ -8,7 +8,7 @@ class HomeProvider extends ChangeNotifier {
   List<NoteModel> noteList = [];
   void loadNotes() async {
     try {
-      List<NoteModel> notes = await ApiSercice().getNotes();
+      List<NoteModel> notes = await ApiService().getNotes();
       noteList = notes;
     } catch (error) {
       print('Error loading notes: $error');
@@ -19,7 +19,7 @@ class HomeProvider extends ChangeNotifier {
   addNotes(BuildContext context) async {
     final title = titlecontroller.text;
     final description = descriptioncontroller.text;
-    await ApiSercice()
+    await ApiService()
         .createNotes(NoteModel(description: description, title: title));
     loadNotes();
     Navigator.pop(context);
@@ -27,7 +27,7 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
     deleteNote({required id}) async {
-    await ApiSercice().deleteNotes(id: id);
+    await ApiService().deleteNotes(id: id);
     loadNotes();
     notifyListeners();
   }
@@ -35,7 +35,7 @@ class HomeProvider extends ChangeNotifier {
     var titleEdit = titlecontroller.text;
     var descriptionEdit = descriptioncontroller.text;
     loadNotes();
-    ApiSercice().editNotes(id: id,value: NoteModel(title: titleEdit,description: descriptionEdit));
+    ApiService().editNotes(id: id,value: NoteModel(title: titleEdit,description: descriptionEdit));
     notifyListeners();
   }
 }
