@@ -16,32 +16,39 @@ class ApiService {
 
         return notes;
       } else {
-        throw Exception('Failed to load notes');
+        throw Exception(' Failed to load notes');
       }
     } catch (error) {
       throw Exception('Failed to load notes: $error');
+      
     }
   }
 
-  createNotes(NoteModel value)async{
+  createNotes(NoteModel value) async {
     try {
-      await dio.post(endpointUrl,data: value.toJson());
+      await dio.post(endpointUrl, data: value.toJson());
     } catch (e) {
       throw Exception(e);
     }
   }
-  deleteNotes({required id})async{
+
+  deleteNotes({required id}) async {
     var deleteUrl = 'https://656af722dac3630cf7278113.mockapi.io/memo/$id';
-    try{
+    try {
       await dio.delete(deleteUrl);
-    }catch (e){
+    } catch (e) {
       throw Exception(e);
     }
   }
-  editNotes({required NoteModel value,required id,})async{
-    try{
-      await dio.put('https://656af722dac3630cf7278113.mockapi.io/memo/$id',data: value.toJson());
-    }catch (e){
+
+  editNotes({
+    required NoteModel value,
+    required id,
+  }) async {
+    try {
+      await dio.put('https://656af722dac3630cf7278113.mockapi.io/memo/$id',
+          data: value.toJson());
+    } catch (e) {
       throw Exception(e);
     }
   }
